@@ -2,10 +2,6 @@
 
 The purpose of this repository is to better understand the variance that occurs when running userflow. 
 
-> TODO - Expand on motivation
->   - Motivation includes improve decision-making based on results
-> TODO - Expand on existing resources
-
 ## Variance on GitHub Runners
 
 ### Overview
@@ -43,8 +39,6 @@ After each run the fetch time and performance score we appended to the previews 
 ### Results
 
 The results varied, with the highest score of 0.98, the lowest score of 0.87, a mean of 0.948 and a medium of 0.96.
-
-> TODO - Update Image when cron is finished
 
 ![untitled-2](https://user-images.githubusercontent.com/40126819/218272756-25615288-0648-4152-ba15-30d9c077580b.png)
 
