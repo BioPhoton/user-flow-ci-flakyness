@@ -3,8 +3,816 @@
 <head>
     <meta charset="UTF-8">
     <title>User Flow Flakiness</title>
+
 </head>
 <body>
-Test
+    <h1>Variation between Lighthouse User-Flow runs in GitHub Runner</h1>
+    <script type="module">
+        import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+        import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+        const sample1 = [
+            {
+                "fetchTime": "2023-02-09T14:32:44.039Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-09T14:47:00.213Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T15:02:36.128Z",
+                "performance": 0.9
+            },
+            {
+                "fetchTime": "2023-02-09T15:21:29.226Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-09T15:33:12.791Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-09T15:47:07.119Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T16:03:19.930Z",
+                "performance": 0.91
+            },
+            {
+                "fetchTime": "2023-02-09T16:22:15.500Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T16:37:48.759Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T16:50:19.838Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-09T17:02:25.038Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T17:20:33.449Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T17:32:19.111Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-09T17:47:06.667Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-09T18:02:53.601Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-09T18:22:12.524Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-09T18:35:07.651Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T18:47:26.190Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T19:02:51.600Z",
+                "performance": 0.88
+            },
+            {
+                "fetchTime": "2023-02-09T19:19:21.513Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-09T19:32:00.505Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T19:47:06.451Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-09T20:02:28.382Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T20:21:27.980Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-09T20:32:18.716Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-09T20:47:03.265Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T21:02:39.041Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T21:20:01.337Z",
+                "performance": 0.91
+            },
+            {
+                "fetchTime": "2023-02-09T21:32:11.373Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T21:47:01.340Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T22:02:36.031Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-09T22:21:11.748Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-09T22:33:06.331Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-09T22:47:10.332Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-09T23:02:25.067Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-09T23:21:18.295Z",
+                "performance": 0.97
+            },
+            {
+                "fetchTime": "2023-02-09T23:32:35.667Z",
+                "performance": 0.98
+            },
+            {
+                "fetchTime": "2023-02-09T23:46:50.604Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T00:06:20.592Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T00:29:43.942Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-10T00:52:06.063Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T01:30:26.289Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T02:07:35.788Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-10T02:39:31.145Z",
+                "performance": 0.98
+            },
+            {
+                "fetchTime": "2023-02-10T03:00:42.096Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T03:14:11.698Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-10T03:25:52.387Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T03:35:57.044Z",
+                "performance": 0.98
+            },
+            {
+                "fetchTime": "2023-02-10T03:47:29.112Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T04:02:38.563Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T04:22:06.955Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-10T04:35:18.325Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T04:47:24.337Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-10T05:02:41.415Z",
+                "performance": 0.98
+            },
+            {
+                "fetchTime": "2023-02-10T05:20:42.873Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T05:32:16.057Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T05:46:51.651Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T06:02:36.924Z",
+                "performance": 0.98
+            },
+            {
+                "fetchTime": "2023-02-10T06:22:14.553Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T06:36:09.317Z",
+                "performance": 0.91
+            },
+            {
+                "fetchTime": "2023-02-10T06:47:49.972Z",
+                "performance": 0.98
+            },
+            {
+                "fetchTime": "2023-02-10T07:02:39.361Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-10T07:20:12.156Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T07:32:19.173Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T07:47:09.894Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-10T08:02:51.086Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T08:21:57.039Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T08:34:54.520Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T08:47:11.995Z",
+                "performance": 0.98
+            },
+            {
+                "fetchTime": "2023-02-10T09:02:43.674Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T09:21:04.520Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T09:32:07.965Z",
+                "performance": 0.98
+            },
+            {
+                "fetchTime": "2023-02-10T09:46:54.049Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T10:02:43.726Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T10:21:27.973Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-10T10:34:36.886Z",
+                "performance": 0.97
+            },
+            {
+                "fetchTime": "2023-02-10T10:46:57.748Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T11:02:16.500Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T11:19:34.747Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T11:31:57.687Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T11:46:55.038Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T12:03:00.932Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T12:23:11.220Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T12:41:44.435Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T12:54:57.192Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T13:07:00.697Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T13:22:23.461Z",
+                "performance": 0.98
+            },
+            {
+                "fetchTime": "2023-02-10T13:34:45.420Z",
+                "performance": 0.97
+            },
+            {
+                "fetchTime": "2023-02-10T13:46:55.359Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T14:02:37.524Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T14:20:35.341Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T14:32:32.681Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-10T14:47:06.060Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T15:02:38.807Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T15:21:11.092Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-10T15:33:01.405Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-10T15:47:07.194Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T16:02:36.227Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T16:22:25.000Z",
+                "performance": 0.9
+            },
+            {
+                "fetchTime": "2023-02-10T16:37:46.460Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-10T16:49:44.947Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T17:02:29.241Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T17:20:40.780Z",
+                "performance": 0.97
+            },
+            {
+                "fetchTime": "2023-02-10T17:32:43.456Z",
+                "performance": 0.87
+            },
+            {
+                "fetchTime": "2023-02-10T17:47:02.607Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T18:02:40.974Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T18:22:04.708Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-10T18:34:53.754Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T18:47:00.319Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-10T19:02:21.576Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T19:18:48.580Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T19:31:58.708Z",
+                "performance": 0.97
+            },
+            {
+                "fetchTime": "2023-02-10T19:47:13.560Z",
+                "performance": 0.89
+            },
+            {
+                "fetchTime": "2023-02-10T20:03:00.170Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-10T20:21:04.406Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T20:32:20.382Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-10T20:47:14.329Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-10T21:02:19.250Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T21:19:38.727Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T21:31:58.570Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T21:46:59.554Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T22:02:29.705Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T22:20:52.631Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T22:32:38.482Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-10T22:47:14.154Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T23:02:20.061Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-10T23:20:59.617Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-10T23:31:59.860Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-10T23:46:53.132Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T00:05:43.872Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-11T00:24:52.847Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T00:46:16.390Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-11T01:29:03.340Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T02:02:21.975Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-11T02:34:07.456Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-11T02:53:02.288Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-11T03:02:46.719Z",
+                "performance": 0.91
+            },
+            {
+                "fetchTime": "2023-02-11T03:21:09.664Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T03:32:24.403Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-11T03:47:23.935Z",
+                "performance": 0.87
+            },
+            {
+                "fetchTime": "2023-02-11T04:02:34.785Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-11T04:21:38.632Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T04:34:49.176Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-11T04:46:50.444Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T05:02:55.040Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-11T05:20:19.036Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-11T05:31:59.204Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T05:47:01.776Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-11T06:02:28.620Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T06:21:45.201Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-11T06:33:58.289Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T06:47:04.220Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-11T07:02:34.496Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-11T07:19:28.821Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T07:32:15.744Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-11T07:47:22.644Z",
+                "performance": 0.9
+            },
+            {
+                "fetchTime": "2023-02-11T08:02:55.381Z",
+                "performance": 0.97
+            },
+            {
+                "fetchTime": "2023-02-11T08:21:48.988Z",
+                "performance": 0.9
+            },
+            {
+                "fetchTime": "2023-02-11T08:34:09.457Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T08:47:05.752Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-11T09:02:38.538Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-11T09:20:09.845Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T09:32:13.917Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-11T09:46:53.196Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T10:02:33.869Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-11T10:21:19.649Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-11T10:32:26.730Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T10:46:52.365Z",
+                "performance": 0.97
+            },
+            {
+                "fetchTime": "2023-02-11T11:02:11.869Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T11:18:51.043Z",
+                "performance": 0.94
+            },
+            {
+                "fetchTime": "2023-02-11T11:31:59.459Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T11:46:52.324Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T12:02:51.524Z",
+                "performance": 0.95
+            },
+            {
+                "fetchTime": "2023-02-11T12:22:54.786Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T12:40:32.913Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-11T12:53:09.246Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T13:05:20.632Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T13:22:02.268Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-11T13:32:12.266Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T13:46:56.468Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T14:02:22.614Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T14:19:40.302Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T14:32:09.023Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T14:46:52.025Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T15:02:28.297Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T15:21:03.615Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-11T15:31:59.544Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T15:46:52.496Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T16:02:36.801Z",
+                "performance": 0.97
+            },
+            {
+                "fetchTime": "2023-02-11T16:21:46.849Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T16:36:37.113Z",
+                "performance": 0.93
+            },
+            {
+                "fetchTime": "2023-02-11T16:47:56.072Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T17:02:12.031Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T17:19:37.437Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T17:32:04.211Z",
+                "performance": 0.96
+            },
+            {
+                "fetchTime": "2023-02-11T17:47:17.292Z",
+                "performance": 0.92
+            },
+            {
+                "fetchTime": "2023-02-11T18:02:41.551Z",
+                "performance": 0.96
+            }
+        ]
+        let sample = sample1.map((entry) => ({
+            date: new Date(entry.fetchTime),
+            score: entry.performance
+        }));
+        const scoreArr = sample.map(({score}) => score);
+        const mean = d3.mean(scoreArr);
+        const median = d3.median(scoreArr);
+        document.body.append(Plot.plot({
+            marks: [
+                Plot.dot(sample, {x: "date", y: "score"}),
+                Plot.ruleY([median, mean])
+            ]
+        }));
+    </script>
 </body>
 </html>
