@@ -46,4 +46,5 @@ The results varied, with the highest score of 0.98, the lowest score of 0.87, a 
 
 > TODO - Update Image when cron is finished
 
-![untitled-2.png](..%2F..%2FDownloads%2Funtitled-2.png)
+![untitled-2](https://user-images.githubusercontent.com/40126819/218272756-25615288-0648-4152-ba15-30d9c077580b.png)
+
