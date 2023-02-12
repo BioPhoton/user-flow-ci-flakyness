@@ -5,7 +5,7 @@ on:
     - cron: '*/15 * * * *'
 
 jobs:
-  user-flow:
+  navigation-performance:
     runs-on: ubuntu-latest
     strategy:
       matrix:

@@ -1,11 +1,11 @@
-name: Flakiness User-Flow Cron - Order Coffee
+name: Flakiness User-Flow Cron - Order Coffee Live
 
 on:
   schedule:
     - cron: '*/15 * * * *'
 
 jobs:
-  user-flow:
+  order-coffee-live:
     runs-on: ubuntu-latest
     strategy:
       matrix:
