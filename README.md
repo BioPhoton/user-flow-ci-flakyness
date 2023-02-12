@@ -1,30 +1,44 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/626af698-2379-4cfc-888c-3c502fad8f08/deploy-status)](https://app.netlify.com/sites/coffee-cart/deploys)
+# Experiments on lighthouse user-flow variance
 
-# Coffee cart
+The purpose of this repository is to better understand the variance that occurs when running userflow. 
 
-https://coffee-cart.netlify.app/. This demo created with Vue 3 + Typescript + Vite.
+## Variance on GitHub Runners
 
-## Special actions you can do
-1. **Double click** on coffee title to translate it to Chinese.
-2. **Right click** on coffee icon to open an add to cart `<dialog>`.
-3. [Desktop only] **Hover** over Pay button will show a quick cart preview, click to add or remove items.
-4. A random promo coffee pop up show up when adding every 3rd items to the cart. (e.g. 3, 6, 9, ...)
-5. The add to cart process will be slowing down (intentionally) when the cart has more than 7 items.
-6. Slow down page load performance with ads by passing in an `ads` param (e.g. https://coffee-cart.netlify.app/?ad=1).
+### Overview
 
-## To run it with slow performance
+The purpose of this experiment is to document the impact of 
+[Client hardware variability](https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md#client-hardware-variability) 
+and [Client resource contention](https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md#client-resource-contention) 
+when running user-flow on a GitHub Actions Runner. For this reason we attempted to mitigate the impact of the main 
+[sources of variance](https://github.com/GoogleChrome/lighthouse/issues/10657#issue-608608580) identified by lighthouse.
 
-1. Run with https://coffee-cart.netlify.app?ad=1
-2. When the cart has more than 7 items, The process will be slowing down.
-3. Go to https://goo.gle/devtools-performance to learn more about how to perform performance analysis.
+**Mitigation Strategies**
 
-## To record a user flows / start a test
+- [Page Nondeterminism](https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md#page-nondeterminism): Ensuring that the exact same version of the page is being tested between different runs.
+- [Local Network Variability](https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md#local-network-variability): Serve application locally with no external resources.
+- [Tier-1 Network Variability](https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md#tier-1-network-variability): Serve application locally with no external resources.
+- [Web Server Variability](https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md#web-server-variability): Serve application locally with no external resources.
+- [Browser Nondeterminism](https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md#browser-nondeterminism): Serve simple application with no complex logic.
 
-1. Run with https://coffee-cart.netlify.app
-2. Go to https://goo.gle/devtools-recorder to learn how to record, replay user flows with DevTools Recorder.
+**Target Details**
 
-## Getting started with this repo
+_Application_
 
-1. Download the project.
-2. Run `npm install`.
-3. Run `npm run dev` to start a local server.
+The Target application is [Coffee cart](https://github.com/jecfish/coffee-cart) which is served locally using vite preview.
+
+_User Flow Run_
+
+The user was generated using `npx @push-based/user-flow init` and executed as a cron job in a GitHub CI workflow using `npx @push-based/user-flow init` over a GitHub runner.
+
+**Data Collected**
+
+The was collected between `TODO` and `TODO` during this time user-flow collect was executed 200 times inside a GitHub runner.
+The user-flow only collected data from the performance category for an initial navigation. 
+After each run the fetch time and performance score we appended to the previews results and the rest of the json was deleted.
+
+### Results
+
+The results varied, with the highest score of 0.98, the lowest score of 0.87, a mean of 0.948 and a medium of 0.96.
+
+![untitled-2](https://user-images.githubusercontent.com/40126819/218272756-25615288-0648-4152-ba15-30d9c077580b.png)
+
