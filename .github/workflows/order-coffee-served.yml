@@ -16,6 +16,9 @@ jobs:
       - name: NPM CI
         run: npm ci
 
+      - name: Build
+        run: npm run build
+
       - name: User Flow Audit
         run: npx user-flow --ufPath="./user-flows/order-coffee.uf.ts"  --url="http://localhost:4173/" --serveCommand="npm run serve" --awaitServeStdout="4173"
 
