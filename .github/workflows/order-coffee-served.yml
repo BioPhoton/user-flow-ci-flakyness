@@ -17,7 +17,7 @@ jobs:
         run: npm ci
 
       - name: User Flow Audit
-        run: npx user-flow --ufPath="./user-flows/order-coffee.uf.ts"  --url="http://localhost:4173/" --serveCommand="npm run serve" --awaitServeStdout=4173,
+        run: npx user-flow --ufPath="./user-flows/order-coffee.uf.ts"  --url="http://localhost:4173/" --serveCommand="npm run serve" --awaitServeStdout="4173"
 
       - name: Compile & CleanUp
         id: compiler
