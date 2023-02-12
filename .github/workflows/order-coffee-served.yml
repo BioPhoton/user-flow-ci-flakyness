@@ -17,11 +17,11 @@ jobs:
         run: npm ci
 
       - name: User Flow Audit
-        run: npx user-flow --ufPath="./user-flows/order-coffee.uf.ts" --url="https://coffee-cart.netlify.app/"
+        run: npx user-flow --ufPath="./user-flows/order-coffee.uf.ts"  --url="http://localhost:4173/" --serveCommand="npm run serve" --awaitServeStdout=4173,
 
       - name: Compile & CleanUp
         id: compiler
-        run: node scripts/compile-and-cleanup.js
+        run: node scripts/compile-and-cleanup.js order-coffee
 
       - uses: EndBug/add-and-commit@v7
         with:
