@@ -1,0 +1,31 @@
+name: Flakiness User-Flow Cron - Order Coffee
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+
+jobs:
+  order-coffee-served:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: NPM CI
+        run: npm ci
+
+      - name: User Flow Audit
+        run: npx user-flow --ufPath="./user-flows/order-coffee.uf.ts"  --url="http://localhost:4173/" --serveCommand="npm run serve" --awaitServeStdout=4173,
+
+      - name: Compile & CleanUp
+        id: compiler
+        run: node scripts/compile-and-cleanup.js order-coffee
+
+      - uses: EndBug/add-and-commit@v7
+        with:
+          author_name: github-bot
+          author_email: opensource@push-based.io
+          message: 'Persist Updated Compiled Results'
+          add: '*'
