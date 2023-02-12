@@ -18,7 +18,7 @@ const interactions: UserFlowInteractionsFn = async (
 
 const userFlowProvider: UserFlowProvider = {
     flowOptions: {
-        name: "Basic Navigation Example", config: {
+        name: "navigation-performance", config: {
             "settings": {
                 "onlyCategories": ["performance"]
             }
