@@ -1,8 +1,8 @@
 name: Flakiness User-Flow Cron - Order Coffee Live
 
-on:
-  schedule:
-    - cron: '*/10 * * * *'
+#on:
+#  schedule:
+#    - cron: '*/10 * * * *'
 
 jobs:
   order-coffee-live:
