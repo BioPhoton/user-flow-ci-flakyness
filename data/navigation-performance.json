@@ -1274,5 +1274,9 @@
   {
     "fetchTime": "2023-02-15T07:42:36.081Z",
     "performance": 0.94
+  },
+  {
+    "fetchTime": "2023-02-15T07:52:21.643Z",
+    "performance": 0.96
   }
 ]
