@@ -2222,5 +2222,9 @@
   {
     "fetchTime": "2023-02-17T04:27:47.841Z",
     "performance": 0.96
+  },
+  {
+    "fetchTime": "2023-02-17T04:37:22.693Z",
+    "performance": 0.93
   }
 ]
