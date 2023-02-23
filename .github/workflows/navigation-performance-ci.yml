@@ -1,8 +1,6 @@
 name: Flakiness User-Flow Cron - Navigation Performnace
 
-on:
-  schedule:
-    - cron: '*/10 * * * *'
+on: push
 
 jobs:
   navigation-performance:
